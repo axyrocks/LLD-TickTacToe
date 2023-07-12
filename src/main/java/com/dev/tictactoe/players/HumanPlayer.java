@@ -6,6 +6,7 @@ import com.dev.tictactoe.models.Board;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class HumanPlayer extends IPlayer{
 
@@ -13,10 +14,11 @@ public class HumanPlayer extends IPlayer{
         super(symbol);
     }
     @Override
-    public void makeMove(Board board) throws IOException {
-        int rowNo = new BufferedReader(new InputStreamReader(System.in)).read();
-        int colNo = new BufferedReader(new InputStreamReader(System.in)).read();
-        int[][] boardGrid = board.getGrid();
-        boardGrid[rowNo][colNo] = symbol == Symbol.X ? 1 : 0;
+    public void makeMove(Board board) {
+        Scanner sc = new Scanner(System.in);
+        int rowNo = sc.nextInt();
+        int colNo = sc.nextInt();
+        int grid[][] = board.getGrid();
+        grid[rowNo][colNo] = symbol == Symbol.X ? 1 : 0;
     }
 }

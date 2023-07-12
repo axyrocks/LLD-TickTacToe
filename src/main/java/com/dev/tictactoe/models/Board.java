@@ -8,6 +8,11 @@ public class Board {
     public Board(int dimension) {
         this.dimension = dimension;
         grid = new int[dimension][dimension];
+        for(int i = 0; i<dimension; i++){
+            for(int j = 0; j<dimension; j++){
+                grid[i][j] = -dimension;
+            }
+        }
     }
 
     public int getDimension() {
@@ -40,5 +45,24 @@ public class Board {
             colSum+= grid[i][col];
         }
         return colSum;
+    }
+
+    public void printBoard(){
+        System.out.println("----------------------");
+        for(int i = 0; i< dimension; i++){
+            for(int j = 0; j< dimension; j++){
+                if(grid[i][j] == 1){
+                    System.out.print("X ");
+                }
+                else if(grid[i][j] == 0){
+                    System.out.print("O ");
+                }
+                else{
+                    System.out.print("_ ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
