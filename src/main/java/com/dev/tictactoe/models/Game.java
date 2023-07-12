@@ -3,50 +3,55 @@ package com.dev.tictactoe.models;
 import com.dev.tictactoe.players.IPlayer;
 import com.dev.tictactoe.services.IWinningStrategy;
 
-import java.util.List;
+import java.io.IOException;
 
 public class Game {
     private Board board;
-    private List<IPlayer> players;
+    private IPlayer player1;
+    private IPlayer player2;
     private boolean currentPlayer;
     private IWinningStrategy winningStrategy;
 
-    public Game(int dimensions, List<IPlayer> players, boolean currentPlayer, IWinningStrategy winningStrategy) {
+    public Game(int dimensions, IPlayer player1, IPlayer player2, boolean currentPlayer, IWinningStrategy winningStrategy) {
         this.board = new Board(dimensions);
-        this.players = players;
+        this.player1 = player1;
+        this.player2 = player2;
         this.currentPlayer = currentPlayer;
         this.winningStrategy = winningStrategy;
     }
 
-    public Board getBoard() {
-        return board;
+    public IPlayer getCurrentPlayer(){
+        return currentPlayer ? player1: player2;
     }
 
-    public void setBoard(Board board) {
-        this.board = board;
+    public void updateCurrentPlayer(){
+        currentPlayer = !currentPlayer;
     }
 
-    public List<IPlayer> getPlayers() {
-        return players;
+    public void printWinner(int winner){
+        if(winner == 1)
+            System.out.println("Player X wins the game!! ");
+        else
+            System.out.println("Player O wins the game!! ");
     }
 
-    public void setPlayers(List<IPlayer> players) {
-        this.players = players;
-    }
-
-    public boolean isCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(boolean currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public IWinningStrategy getWinningStrategy() {
-        return winningStrategy;
-    }
-
-    public void setWinningStrategy(IWinningStrategy winningStrategy) {
-        this.winningStrategy = winningStrategy;
+    public void run() {
+        int totalTurns = board.getDimension() * board.getDimension();
+        int turns = 0;
+        while (turns < totalTurns) {
+            board.printBoard();
+            IPlayer currentPlayer = getCurrentPlayer();
+            System.out.println("Player " + currentPlayer.symbol+"'s turn");
+            currentPlayer.makeMove(board);
+            int winner = winningStrategy.getWinner(board);
+            if (winner > -1) {
+                board.printBoard();
+                printWinner(winner);
+                return;
+            }
+            updateCurrentPlayer();
+            turns++;
+        }
+        System.out.println("No result");
     }
 }
