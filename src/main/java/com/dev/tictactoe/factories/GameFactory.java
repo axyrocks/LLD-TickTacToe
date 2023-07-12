@@ -8,7 +8,6 @@ import com.dev.tictactoe.players.IPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class GameFactory {
     public static Game launch(int dimension, PlayerType playerType1,PlayerType playerType2){

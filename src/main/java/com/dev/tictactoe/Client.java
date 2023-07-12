@@ -15,6 +15,5 @@ import java.util.Arrays;
 public class Client {
     public static void main(String[] args) {
         Game game = GameFactory.launch(3, PlayerType.Human, PlayerType.Human);
-        ga
     }
 }
